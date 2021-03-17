@@ -2,15 +2,17 @@
 #include <NewPing.h>        //Ultrasonic sensor function library. You must install this library
 
 
-/*int ENA = 6;
-int ENB = 9;*/ 
+int ENA = 6;
+int ENB = 9;
 //our L298N control pins
-const int LeftMotorForward = 5;
-const int LeftMotorBackward = 4;
-const int RightMotorForward = 3;
-const int RightMotorBackward = 2;
+const int LeftMotorForward = 4;
+const int LeftMotorBackward = 5;
+const int RightMotorForward = 2;
+const int RightMotorBackward = 3;
 
-const int speed = 255;
+
+const int IR =8;
+const int speed = 200;
 //sensor pins
 #define trig_pin A3 //analog input 1
 #define echo_pin A2 //analog input 2
@@ -55,7 +57,8 @@ void moveForward(){
   if(!goesForward){
 
     goesForward=true;
-    
+    analogWrite(ENA, speed);
+    analogWrite(ENB, speed);
     digitalWrite(LeftMotorForward, HIGH);
     digitalWrite(RightMotorForward, HIGH);
   
@@ -68,6 +71,8 @@ void moveBackward(){
   Serial.println("MOVING BACKWARD");
 
   goesForward=false;
+  analogWrite(ENA, speed);
+  analogWrite(ENB, speed);
 
   digitalWrite(LeftMotorBackward, HIGH);
   digitalWrite(RightMotorBackward, HIGH);
@@ -99,8 +104,10 @@ void moveBackward(){
 
 void turnLeft(){
   Serial.println("TURNED LEFT");
+  analogWrite(ENA, speed);
+  analogWrite(ENB, speed);
 
-  digitalWrite(LeftMotorBackward, HIGH);
+  //digitalWrite(LeftMotorBackward, HIGH);
   digitalWrite(RightMotorForward, HIGH);
   
   digitalWrite(LeftMotorForward, LOW);
@@ -125,10 +132,9 @@ void setup(){
   pinMode(LeftMotorBackward, OUTPUT);
   pinMode(RightMotorBackward, OUTPUT);
 
-  /*pinMode(ENA, OUTPUT);
+  pinMode(ENA, OUTPUT);
   pinMode(ENB, OUTPUT);
-  analogWrite(ENA, speed);
-  analogWrite(ENB, speed);*/
+  
   servo_motor.attach(11); //our servo pin
   servo_motor.write(0);
   delay(2000);
@@ -146,8 +152,8 @@ void loop(){
 
   delay(50);
   distance = readPing();
-  
-  if (distance <= 20 ){
+  int data = digitalRead (IR);
+  if (distance <= 30 || data ==0 ){
     Serial.println(readPing());
     moveStop();
     delay(300);
@@ -159,6 +165,7 @@ void loop(){
     lookLeft();
     delay(300);
     turnLeft();
+
 
     /*if (distance >= distanceLeft){
       turnRight();

@@ -16,8 +16,6 @@ NewPing sonar(TRIGGER_PIN, ECHO_PIN, MAX_DISTANCE);
  
 void setup() {
   Serial.begin(9600);
-  pinMode(2,OUTPUT);
-  digitalWrite(2, HIGH);
   servo.attach(servoPin); 
 }
  

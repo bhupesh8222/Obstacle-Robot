@@ -1,7 +1,7 @@
-const int LeftMotorForward = 5;
-const int LeftMotorBackward = 4;
-const int RightMotorForward = 3;
-const int RightMotorBackward = 2;
+const int LeftMotorForward = 4;
+const int LeftMotorBackward = 5;
+const int RightMotorForward = 2;
+const int RightMotorBackward = 3;
 
 void setup() {
    Serial.begin(9600);
@@ -12,7 +12,6 @@ void setup() {
 }
 
 void loop() {
-   digitalWrite(LeftMotorForward , HIGH);
-   digitalWrite(RightMotorForward, HIGH);
+   digitalWrite(LeftMotorBackward , HIGH);
 
 }

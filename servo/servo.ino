@@ -6,13 +6,13 @@ Adafruit Arduino - Lesson 14. Sweep
 
 int servoPin = 11;
  
-Servo servo;  
+Servo servo_motor;  
  
 int angle = 0;   // servo position in degrees 
  
 void setup() 
 { 
-  servo.attach(servoPin); 
+  servo_motor.attach(servoPin); 
  //lookRight();
  //delay(2000);
  //lookLeft();
@@ -24,23 +24,11 @@ void setup()
 void loop() 
 { 
   
- servo.write(0);
+Serial.println("LOOKED LEFT!");
+  servo_motor.write(40);
+  delay(1000);
+  
+  servo_motor.write(0);
+  delay(1000);
 
 } 
-
-void lookRight()
-{
-   servo.write(20);
-  delay(1000);
-  //distance
-   servo.write(0);
-}
-
-void lookLeft(){
-  servo.write(-20);
-  delay(1000);
- //distance
-   delay(1000);
-   
-   servo.write(0);
-}
